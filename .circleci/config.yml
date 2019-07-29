@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/envvault
+    steps:
+      - checkout
+      - run: go get github.com/golang/dep/cmd/dep
+      - run: dep ensure -v
+      - run: go test -v
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/envvault
+    steps:
+      - checkout
+      - run: go get github.com/golang/dep/cmd/dep
+      - run: dep ensure -v
+      - run: go build -o bin/envvault
+      - store_artifacts:
+          path: bin/envvault
+
+workflows:
+  build_test:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
