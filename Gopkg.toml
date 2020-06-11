@@ -1,5 +1,6 @@
 [[constraint]]
   name = "github.com/aws/aws-sdk-go"
+  version = "v1.31.15"
 
 [[constraint]]
   name = "github.com/pkg/errors"
